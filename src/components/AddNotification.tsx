@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import { BASE_URL } from '../constants/url.ts';
 import { useSWRConfig } from 'swr';
 
-const AddAlarm = () => {
+const AddNotification = () => {
   const { mutate } = useSWRConfig();
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
@@ -18,7 +18,7 @@ const AddAlarm = () => {
   const [selectedHour, setSelectedHour] = useState(0);
   const [selectedMinute, setSelectedMinute] = useState(0);
 
-  const addAlarm = async (e: MouseEvent) => {
+  const addNotification = async (e: MouseEvent) => {
     e.preventDefault();
 
     const response = await fetch(`${BASE_URL}/notification`, {
@@ -38,7 +38,7 @@ const AddAlarm = () => {
     });
 
     if (response.ok) {
-      alert('알람이 성공적으로 등록되었습니다.');
+      alert('알림이 성공적으로 등록되었습니다.');
       mutate('/notification');
       setEnteredMessage('');
       setSelectedYear(currentYear);
@@ -47,24 +47,26 @@ const AddAlarm = () => {
       setSelectedHour(0);
       setSelectedMinute(0);
     } else {
-      alert('알람 등록이 실패했습니다. 다시 시도해주세요.');
+      alert('알림 등록이 실패했습니다. 다시 시도해주세요.');
     }
   };
 
   return (
-    <section>
-      <h1>알람 등록</h1>
-      <form>
-        <div>
-          <label htmlFor={'message'}>알람 메세지</label>
+    <fieldset id={'addNotification'}>
+      <legend>알림 등록</legend>
+      <form className={'flex flex-col'}>
+        <div className={'flex flex-col'}>
+          <label htmlFor={'message'}>메세지</label>
           <textarea
             id={'message'}
             value={enteredMessage}
             onChange={(e) => setEnteredMessage(e.target.value)}
+            className={'border'}
+            rows={4}
           />
         </div>
 
-        <div>
+        <div className={'my-4'}>
           <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(+e.target.value)}
@@ -75,7 +77,7 @@ const AddAlarm = () => {
               </option>
             ))}
           </select>
-          <span>년</span>
+          <span className={'mr-2'}>년</span>
 
           <select
             value={selectedMonth}
@@ -87,7 +89,7 @@ const AddAlarm = () => {
               </option>
             ))}
           </select>
-          <span>월</span>
+          <span className={'mr-2'}>월</span>
 
           <select
             value={selectedDate}
@@ -102,7 +104,7 @@ const AddAlarm = () => {
               </option>
             ))}
           </select>
-          <span>일</span>
+          <span className={'mr-2'}>일</span>
 
           <select
             value={selectedHour}
@@ -114,7 +116,7 @@ const AddAlarm = () => {
               </option>
             ))}
           </select>
-          <span>시</span>
+          <span className={'mr-2'}>시</span>
 
           <select
             value={selectedMinute}
@@ -129,10 +131,16 @@ const AddAlarm = () => {
           <span>분</span>
         </div>
 
-        <button onClick={addAlarm}>등록</button>
+        <button
+          className={''}
+          onClick={addNotification}
+          disabled={!enteredMessage.trim()}
+        >
+          등록
+        </button>
       </form>
-    </section>
+    </fieldset>
   );
 };
 
-export default AddAlarm;
+export default AddNotification;

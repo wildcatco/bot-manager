@@ -1,4 +1,4 @@
-export type ALARM = {
+export type NOTIFICATION = {
   id: string;
   year: number;
   month: number;

@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply text-gray-700;
+}
+
+fieldset {
+  @apply border py-4 px-6 border-gray-400 rounded-md;
+}
+
+legend {
+  @apply text-xl font-bold text-gray-800;
+}
+
+textarea {
+  @apply border border-gray-300 rounded-md resize-none outline-gray-400 px-2;
+}
+
+select {
+  @apply border border-gray-300 rounded-md;
+}
+
+button {
+  @apply rounded-md py-1 px-2 bg-amber-200 text-black font-bold enabled:hover:bg-amber-300 disabled:bg-gray-300 disabled:text-white;
+}
